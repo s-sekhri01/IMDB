@@ -33,6 +33,11 @@ const WatchListPage = ({ watchlist }) => {
     setLocalList(filteredMovies)
   }
 
+  const filterMovies = (type) => {
+    let filteredMovies = Object.values(watchlist).sort((a, b) => type === 'ASC' ? a.popularity - b.popularity : b.popularity - a.popularity);
+    setLocalList(filteredMovies)
+  }
+
   useEffect(() => {
     setLocalList(Object.values(watchlist));
   }, [watchlist])
@@ -50,7 +55,7 @@ const WatchListPage = ({ watchlist }) => {
               <td>Poster</td>
               <td>Movie Name</td>
               <td>Genres</td>
-              <td>Popularity</td>
+              <td>Popularity <button onClick={() => filterMovies('ASC')}>↑</button> <button onClick={() => filterMovies('DESC')}>↓</button></td>
             </tr>
             {Object.values(localList).map((movie) => (
               <tr>
