@@ -30,32 +30,71 @@ const WatchListPage = ({ watchlist }) => {
     let filteredMovies = Object.values(watchlist).filter((movie) =>
       movie.title.toLowerCase().includes(searchValue.toLowerCase())
     );
-    setLocalList(filteredMovies)
-  }
+    setLocalList(filteredMovies);
+  };
 
   const filterMovies = (type) => {
-    let filteredMovies = Object.values(watchlist).sort((a, b) => type === 'ASC' ? a.popularity - b.popularity : b.popularity - a.popularity);
-    setLocalList(filteredMovies)
-  }
+    let filteredMovies = Object.values(watchlist).sort((a, b) =>
+      type === "ASC" ? a.popularity - b.popularity : b.popularity - a.popularity
+    );
+    setLocalList(filteredMovies);
+  };
+
+  const fetchGenres = () => {
+    let genreList = [];
+    Object.values(watchlist).forEach((movie) => {
+      movie.genre_ids.forEach((genre) => {
+        if (!genreList.includes(genre)) {
+          genreList.push(genre);
+        }
+      });
+    });
+    return genreList;
+  };
+
+  const filterBasedOnGenre = (genre) => {
+    let filteredMovies = Object.values(watchlist).filter((movie) =>
+      movie.genre_ids.includes(genre)
+    );
+    setLocalList(filteredMovies);
+  };
 
   useEffect(() => {
     setLocalList(Object.values(watchlist));
-  }, [watchlist])
+  }, [watchlist]);
 
   return (
     <div>
       <h1>Watchlist</h1>
       <div className="container">
-        <div className="left-section"></div>
+        <div className="left-section">
+          <h3 className="genres">Filter Based On Genres</h3>
+          <ul>
+            <li onClick={() => setLocalList(Object.values(watchlist))}>All</li>
+            {fetchGenres().map((genre) => (
+              <li onClick={() => filterBasedOnGenre(genre)}>
+                {genreIdsMap[genre]}
+              </li>
+            ))}
+          </ul>
+        </div>
         <div className="right-section">
-          <input className="search-box" placeholder="search" onChange={searchMovies}></input>
+          <input
+            className="search-box"
+            placeholder="search"
+            onChange={searchMovies}
+          ></input>
           <table border={1}>
             <tr>
               <td>Movie Id</td>
               <td>Poster</td>
               <td>Movie Name</td>
               <td>Genres</td>
-              <td>Popularity <button onClick={() => filterMovies('ASC')}>↑</button> <button onClick={() => filterMovies('DESC')}>↓</button></td>
+              <td>
+                Popularity{" "}
+                <button onClick={() => filterMovies("ASC")}>↑</button>{" "}
+                <button onClick={() => filterMovies("DESC")}>↓</button>
+              </td>
             </tr>
             {Object.values(localList).map((movie) => (
               <tr>

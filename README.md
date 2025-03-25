@@ -33,3 +33,4 @@ Agenda
 - Add to watchList
 - Watchlist page
 - List all watchlist
+- Sorting, Searching, Filter
