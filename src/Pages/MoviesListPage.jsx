@@ -22,7 +22,7 @@ const MoviesListPage = ({ watchlist, setWatchlist }) => {
   }, []);
 
   return (
-    <div>
+    <div className="movies-list-page">
       <h1>Movies List</h1>
       <MoviesList
         movies={movies}
