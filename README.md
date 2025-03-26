@@ -34,3 +34,7 @@ Agenda
 - Watchlist page
 - List all watchlist
 - Sorting, Searching, Filter
+
+Agenda 
+
+- Context Api integration

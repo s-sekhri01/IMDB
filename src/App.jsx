@@ -5,36 +5,22 @@ import Header from "./components/Header";
 import MoviesListPage from "./Pages/MoviesListPage";
 import MoviesDetailsPage from "./Pages/MoviesDetailsPage";
 import WatchListPage from "./Pages/WatchlistPage";
+import WatchListProvider from "./contexts/WatchlistContext";
 
 function App() {
-  const [watchlist, setWatchlist] = useState({});
   return (
     <BrowserRouter>
-      <StrictMode>
-        <Header />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <MoviesListPage
-                watchlist={watchlist}
-                setWatchlist={setWatchlist}
-              />
-            }
-          />
-          <Route path="/details" element={<MoviesDetailsPage />} />
-          <Route
-            path="/watchlist"
-            element={
-              <WatchListPage
-                watchlist={watchlist}
-                setWatchlist={setWatchlist}
-              />
-            }
-          />
-          <Route path="*" element={<h1>Page Not Found !</h1>} />
-        </Routes>
-      </StrictMode>
+      <WatchListProvider>
+        <StrictMode>
+          <Header />
+          <Routes>
+            <Route path="/" element={<MoviesListPage />} />
+            <Route path="/details" element={<MoviesDetailsPage />} />
+            <Route path="/watchlist" element={<WatchListPage />} />
+            <Route path="*" element={<h1>Page Not Found !</h1>} />
+          </Routes>
+        </StrictMode>
+      </WatchListProvider>
     </BrowserRouter>
   );
 }

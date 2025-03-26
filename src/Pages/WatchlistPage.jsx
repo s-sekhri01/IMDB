@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { WatchListContext } from "../contexts/WatchlistContext";
 
 let genreIdsMap = {
   28: "Action",
@@ -22,7 +23,10 @@ let genreIdsMap = {
   37: "Western",
 };
 
-const WatchListPage = ({ watchlist }) => {
+const WatchListPage = () => {
+
+  const {watchlist} = useContext(WatchListContext);
+
   const [localList, setLocalList] = useState([]);
 
   const searchMovies = (e) => {

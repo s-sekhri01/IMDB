@@ -1,4 +1,10 @@
-const Movie = ({ movie, watchlist, setWatchlist }) => {
+import { useContext } from "react";
+import { WatchListContext } from "../contexts/WatchlistContext";
+
+const Movie = ({ movie }) => {
+
+  const {watchlist, setWatchlist} = useContext(WatchListContext)
+
   const addToWatchlist = () => {
     setWatchlist({ ...watchlist, [movie.id]: movie });
     // console.log(watchlist);
